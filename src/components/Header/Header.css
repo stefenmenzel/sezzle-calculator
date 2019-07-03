@@ -1,0 +1,11 @@
+.header{
+
+    height: 75px;
+    background-color: steelblue;
+}
+
+.headerText{
+    margin:auto;
+    display: block;
+    text-align: center;
+}
