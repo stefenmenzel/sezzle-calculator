@@ -7,3 +7,15 @@
     width:23%;
     margin:1% !important;
 }
+
+.cButton{
+    width: 15.5%;
+}
+
+.inputField{
+    width: 80%;
+    margin:1%;
+    height: 35px;
+    text-align: right;
+    font-size: 2.25vw;
+}
