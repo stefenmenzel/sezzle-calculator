@@ -1,12 +1,10 @@
 const express = require('express');
-const SocketServer = require('ws').Server;
 const socketIO = require('socket.io');
 const http = require('http');
 
 const app = express();
 const server = http.createServer(app);
 const io = socketIO(server);
-const expressWs = require('express-ws')(app);
 const bodyParser = require('body-parser');
 
 //body parser
@@ -15,7 +13,6 @@ app.use(bodyParser.urlencoded({extended: true}));
 
 //serve static files
 app.use(express.static('build'));
-const wss = expressWs.getWss('/');
 
 //app set
 const PORT = process.env.PORT || 5000;
