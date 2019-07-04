@@ -13,12 +13,12 @@ import ExpressionDisplay from '../ExpressionDisplay/ExpressionDisplay.jsx';
 // const URL = (process.env.port) ? 
 //     `https://immense-dawn-65811.herokuapp.com/` :
 //     `ws://192.168.1.135:5000`;
-let URL = '';
-if(process.env.port){
-    URL = window.location.origin.replace(/^http/, 'ws');
-}else{
-    URL = `ws://localhost:5000`; 
-}
+let URL = window.location.origin.replace(/^https/, 'ws');
+// if(process.env.port){
+//     URL = window.location.origin.replace(/^http/, 'ws');
+// }else{
+//     URL = `ws://localhost:5000`; 
+// }
 
 class Calc extends Component{
 
