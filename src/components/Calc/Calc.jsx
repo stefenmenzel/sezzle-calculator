@@ -66,7 +66,7 @@ class Calc extends Component{
         this.socket.onclose = () => {
             console.log("disconnected");
             this.setState({
-                ws: new WebSocket(URL)
+                socket: new WebSocket(URL)
             })
         }
 
