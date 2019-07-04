@@ -8,7 +8,8 @@ import CalcButtons from './CalcButtons.jsx';
 import './Calc.css';
 import ExpressionDisplay from '../ExpressionDisplay/ExpressionDisplay.jsx';
 
-const URL = `ws://localhost:${process.env.port || 5000}`
+// const URL = `ws://localhost:${process.env.port || 5000}`
+const URL = `ws:https://immense-dawn-65811.herokuapp.com:80`
 
 class Calc extends Component{
 
