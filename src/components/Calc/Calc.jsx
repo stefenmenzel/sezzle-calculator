@@ -11,7 +11,7 @@ import ExpressionDisplay from '../ExpressionDisplay/ExpressionDisplay.jsx';
 // const URL = `ws://localhost:${process.env.port || 5000}`
 // const URL = `ws:https://immense-dawn-65811.herokuapp.com:${process.env.port || 5000}`
 const URL = (process.env.port) ? 
-    `ws://immense-dawn-65811.herokuapp.com/socket.io/?EIO=4&transport=websocket` :
+    `https://immense-dawn-65811.herokuapp.com/socket.io/?EIO=4&transport=websocket` :
     `ws://192.168.1.135:5000`;
 // const URL = '';
 // if(process.env.port){
