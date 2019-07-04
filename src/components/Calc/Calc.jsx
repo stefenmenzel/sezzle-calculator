@@ -11,7 +11,7 @@ import ExpressionDisplay from '../ExpressionDisplay/ExpressionDisplay.jsx';
 // const URL = `ws://localhost:${process.env.port || 5000}`
 // const URL = `ws:https://immense-dawn-65811.herokuapp.com:${process.env.port || 5000}`
 const URL = (process.env.port) ? 
-    `ws://immense-dawn-65811.herokuapp.com/` :
+    `https://immense-dawn-65811.herokuapp.com:${process.env.port}` :
     `ws://192.168.1.135:5000`;
 // const URL = '';
 // if(process.env.port){
@@ -27,8 +27,12 @@ class Calc extends Component{
         expressions: []
     }    
         
-    socket = socketIOClient(URL);  
+    // socket = socketIOClient(URL);  
     // socket = io();
+    socket = socketIOClient.connect(URL, {
+        transports: ['websocket'],
+        upgrade: false,
+    })
 
     componentDidMount() {
         this.socket.on('sendExpression', (expression) => {
