@@ -8,13 +8,13 @@ import CalcButtons from './CalcButtons.jsx';
 import './Calc.css';
 import ExpressionDisplay from '../ExpressionDisplay/ExpressionDisplay.jsx';
 
-// const URL = `wss://localhost:${process.env.port || 5000}`
+const URL = `ws://192.168.1.135:${process.env.port || 5000}`
 // const URL = `ws:https://immense-dawn-65811.herokuapp.com:${process.env.port || 5000}`
 // const URL = (process.env.PORT) ? 
 //     `https://immense-dawn-65811.herokuapp.com/` :
 //     `ws://192.168.1.135:5000`;
-const URL = `wss://immense-dawn-65811.herokuapp.com/`;
-const HOST = window.location;
+// const URL = `wss://immense-dawn-65811.herokuapp.com/`;
+const HOST = window.location.origin.replace(/^http/, 'ws');
 console.log('host:', HOST);
 console.log("host:", `ws://${HOST.hostname}:${process.env.PORT || 5000}`);
 console.log('process.env.PORT is real:', (process.env.PORT) ? true : false);
@@ -26,11 +26,11 @@ console.log('process.env.PORT is real:', (process.env.PORT) ? true : false);
 //     URL = `ws://localhost:5000`; 
 // }
 
-const socket = socketIOClient(URL, {
-    secure: true,
-    transports: ['websocket'],
-    upgrade: false,
-});
+// const socket = socketIOClient(URL, {
+//     secure: true,
+//     transports: ['websocket'],
+//     upgrade: false,
+// });
 // const socket = socketIOClient.connect(URL);
 
 class Calc extends Component{
@@ -51,19 +51,37 @@ class Calc extends Component{
     //     transports: ['websocket'],
     //     jsonp: false
     // });    
+    socket = new WebSocket(HOST);
 
     componentDidMount() {
-        socket.connect();
-        socket.on('connection', () => {
-            console.log('connected to server');
-        })
-        socket.on('sendExpression', (expression) => {
-            console.log('got the expression back:', expression)
-            this.addExpression(expression);
-        })
+        this.socket.onopen = () => {
+            console.log("connected to server");
+        }
+        this.socket.onmessage = (expression) => {
+            console.log('got an expression from the server:', expression.data);
+            const message = JSON.parse(expression.data);
+            console.log('message from server:', message);
+            this.addExpression(message);
+        }
+        this.socket.onclose = () => {
+            console.log("disconnected");
+            this.setState({
+                ws: new WebSocket(URL)
+            })
+        }
+
+        // socket.connect();
+        // socket.on('connection', () => {
+        //     console.log('connected to server');
+        // })
+        // socket.on('sendExpression', (expression) => {
+        //     console.log('got the expression back:', expression)
+        //     this.addExpression(expression);
+        // })
     }
 
     addExpression = (expression) => {
+        console.log('in expression with:', expression);
         this.setState({
             expressions: [expression, ...this.state.expressions]
         })
@@ -79,7 +97,9 @@ class Calc extends Component{
     handleSubmit = (expression) => {
         // event.preventDefault();
         const message = {expression: expression};
-        socket.emit('sendExpression', message);
+        // this.socket.send(message);
+        this.socket.send(JSON.stringify(message));
+        // socket.emit('sendExpression', message);
     }
 
     render(){
