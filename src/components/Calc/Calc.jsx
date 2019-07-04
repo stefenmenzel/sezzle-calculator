@@ -35,9 +35,16 @@ class Calc extends Component{
     //     upgrade: false,
     // })
     // socket = socketIOClient(URL, {secure: true});    
-    socket = socketIOClient(URL);
+    socket = socketIOClient(URL, {
+        transports: ['websocket'],
+        jsonp: false
+    });    
 
     componentDidMount() {
+        this.socket.connect();
+        this.socket.on('connect', () => {
+            console.log('connected to server');
+        })
         this.socket.on('sendExpression', (expression) => {
             console.log('got the expression back:', expression)
             this.addExpression(expression);
