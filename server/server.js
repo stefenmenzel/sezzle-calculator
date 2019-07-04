@@ -30,6 +30,7 @@ io.on('connection', socket => {
     console.log('User connected');
     socket.on('disconnect', () => {
         console.log('user disconnected');
+        socket.socket.reconnect();
     });
     socket.on('sendExpression', (expression) => {
         console.log('expression received:', expression);
