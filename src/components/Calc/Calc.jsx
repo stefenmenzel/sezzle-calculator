@@ -39,21 +39,22 @@ class Calc extends Component{
         })
     }
 
-    handleSubmit = (event) => {
-        event.preventDefault();
-        const message = this.state.test;        
+    handleSubmit = (expression) => {
+        // event.preventDefault();
+        const message = {expression: expression};
         this.socket.emit('sendExpression', message);
     }
 
     render(){
-        this.socket.on('sendExpression', (expression) => {
-            this.addExpression(expression);
-        })
+        console.log("calc state", this.state);
+        // this.socket.on('sendExpression', (expression) => {
+        //     this.addExpression(expression);
+        // })
         return(
             <div className="calcDiv">
                 <Grid container justify="center">
                     <Grid item xs={8}>
-                        <CalcButtons handleChange={this.handleChange}/>
+                        <CalcButtons handleSubmit={this.handleSubmit}/>
                         <ExpressionDisplay expressions={this.state.expressions}/>
                     </Grid>
 

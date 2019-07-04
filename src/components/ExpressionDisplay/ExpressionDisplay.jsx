@@ -11,7 +11,7 @@ class ExpressionDisplay extends Component{
             <div>
                 <h2>Expressions</h2>
                 {this.props.expressions.map((expression, index) => {
-                    return <Expression key={index} expression={expression.test}/>
+                    return (<li key={index}>{expression.expression}</li>)
                 })}
             </div>
         )

@@ -3,6 +3,10 @@
     margin: auto;
 }
 
+.calc {
+    margin-top: 5%;
+}
+
 .calcButton{
     width:23%;
     margin:1% !important;
@@ -10,6 +14,8 @@
 
 .cButton{
     width: 15.5%;
+    height: 5.5vw !important;
+    font-size: 1.25em !important;    
 }
 
 .inputField{
