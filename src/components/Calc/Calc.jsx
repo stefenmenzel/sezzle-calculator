@@ -10,9 +10,10 @@ import ExpressionDisplay from '../ExpressionDisplay/ExpressionDisplay.jsx';
 
 // const URL = `ws://localhost:${process.env.port || 5000}`
 // const URL = `ws:https://immense-dawn-65811.herokuapp.com:${process.env.port || 5000}`
-const URL = (process.env.PORT) ? 
-    `https://immense-dawn-65811.herokuapp.com/` :
-    `ws://192.168.1.135:5000`;
+// const URL = (process.env.PORT) ? 
+//     `https://immense-dawn-65811.herokuapp.com/` :
+//     `ws://192.168.1.135:5000`;
+const URL = `https://immense-dawn-65811.herokuapp.com/`;
 // let URL = window.location.origin.replace(/^https/, 'ws');
 // if(process.env.port){
 //     URL = window.location.origin.replace(/^http/, 'ws');
