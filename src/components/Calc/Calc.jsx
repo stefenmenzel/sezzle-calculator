@@ -9,7 +9,10 @@ import './Calc.css';
 import ExpressionDisplay from '../ExpressionDisplay/ExpressionDisplay.jsx';
 
 // const URL = `ws://localhost:${process.env.port || 5000}`
-const URL = `ws:https://immense-dawn-65811.herokuapp.com:${process.env.port || 5000}`
+// const URL = `ws:https://immense-dawn-65811.herokuapp.com:${process.env.port || 5000}`
+const URL = (process.env.port) ? 
+    `ws:https://immense-dawn-65811.herokuapp.com/socket.io/?EIO=4&transport=websocket` :
+    `ws://localhost:5000`;
 
 class Calc extends Component{
 
