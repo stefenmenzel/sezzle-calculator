@@ -33,7 +33,7 @@ class Calc extends Component{
     //     transports: ['websocket'],
     //     upgrade: false,
     // })
-    socket = socketIOClient(URL);
+    socket = socketIOClient(URL, {secure: true});
 
     componentDidMount() {
         this.socket.on('sendExpression', (expression) => {
