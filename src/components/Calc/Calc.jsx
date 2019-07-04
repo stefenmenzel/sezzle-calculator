@@ -27,7 +27,7 @@ class Calc extends Component{
         expressions: []
     }    
         
-    socket = socketIOClient(URL);  
+    socket = socketIOClient();  
     // socket = io();
 
     componentDidMount() {
