@@ -2,7 +2,6 @@ import React, {Component} from 'react';
 import {Grid, Button} from '@material-ui/core';
 
 import './Calc.css';
-import { number } from 'prop-types';
 
 class CalcButtons extends Component{
 
@@ -36,9 +35,7 @@ class CalcButtons extends Component{
         console.log("resolving expression:", currentExpression);
         console.log('last inputted value:', this.state.currentExpression[this.state.currentExpression.length - 2])
                     
-        let result = 0;
-        let checkMultDiv = true
-        let checkPlusMin = true;
+        let result = 0;        
         console.log('numbers before resolution:', numbers);
         for(let i = 0; i < operands.length; i++){
             switch (operands[i]) {
