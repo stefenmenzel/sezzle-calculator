@@ -26,11 +26,11 @@ console.log('process.env.PORT is real:', (process.env.PORT) ? true : false);
 //     URL = `ws://localhost:5000`; 
 // }
 
-const socket = socketIOClient(URL, {
-    secure: true,
-    transports: ['websocket'],
-    upgrade: false,
-});
+// const socket = socketIOClient(URL, {
+//     secure: true,
+//     transports: ['websocket'],
+//     upgrade: false,
+// });
 // const socket = socketIOClient.connect(URL);
 
 class Calc extends Component{
@@ -53,14 +53,14 @@ class Calc extends Component{
     // });    
 
     componentDidMount() {
-        socket.connect();
-        socket.on('connection', () => {
-            console.log('connected to server');
-        })
-        socket.on('sendExpression', (expression) => {
-            console.log('got the expression back:', expression)
-            this.addExpression(expression);
-        })
+        // socket.connect();
+        // socket.on('connection', () => {
+        //     console.log('connected to server');
+        // })
+        // socket.on('sendExpression', (expression) => {
+        //     console.log('got the expression back:', expression)
+        //     this.addExpression(expression);
+        // })
     }
 
     addExpression = (expression) => {
