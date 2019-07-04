@@ -5,7 +5,7 @@ const http = require('http');
 
 const app = express();
 const server = http.createServer(app);
-// const io = socketIO(server);
+const io = socketIO(server);
 const bodyParser = require('body-parser');
 
 //body parser
@@ -17,7 +17,10 @@ app.use(express.static('build'));
 // app.use(express.static(path.join(__dirname, '../../build')));
 
 // app.get('/', (req, res, next) => res.sendFile(__dirname + './index.html'));
-
+// io.configure(() => {
+//     io.set("transports", ["xhr-polling"]);
+//     io.set("polling duration", 10);
+// })
 //app set
 const PORT = process.env.PORT || 5000;
 
@@ -26,10 +29,9 @@ server.listen(PORT, () => {
     console.log(`Listening on port: ${PORT}`);
 })
 
-const io = socketIO(server);
 
 io.on('connection', socket => {
-    socket.emit('hello', {message: 'hello from server!'});
+    io.sockets.emit('hello', {message: 'hello from server!'});
     console.log('User connected');
     socket.on('disconnect', () => {
         console.log('user disconnected');

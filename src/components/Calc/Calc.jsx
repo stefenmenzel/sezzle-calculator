@@ -8,12 +8,12 @@ import CalcButtons from './CalcButtons.jsx';
 import './Calc.css';
 import ExpressionDisplay from '../ExpressionDisplay/ExpressionDisplay.jsx';
 
-// const URL = `ws://localhost:${process.env.port || 5000}`
+// const URL = `wss://localhost:${process.env.port || 5000}`
 // const URL = `ws:https://immense-dawn-65811.herokuapp.com:${process.env.port || 5000}`
 // const URL = (process.env.PORT) ? 
 //     `https://immense-dawn-65811.herokuapp.com/` :
 //     `ws://192.168.1.135:5000`;
-const URL = `wss://immense-dawn-65811.herokuapp.com/`;
+const URL = `wss://immense-dawn-65811.herokuapp.com:26543/`;
 const HOST = window.location;
 console.log('host:', HOST);
 console.log("host:", `ws://${HOST.hostname}:${process.env.PORT || 5000}`);
@@ -26,11 +26,11 @@ console.log('process.env.PORT is real:', (process.env.PORT) ? true : false);
 //     URL = `ws://localhost:5000`; 
 // }
 
-// const socket = socketIOClient(URL, {
-//     secure: true,
-//     transports: ['websocket'],
-//     upgrade: false,
-// });
+const socket = socketIOClient(URL, {
+    secure: true,
+    transports: ['websocket'],
+    upgrade: false,
+});
 // const socket = socketIOClient.connect(URL);
 
 class Calc extends Component{
@@ -53,14 +53,14 @@ class Calc extends Component{
     // });    
 
     componentDidMount() {
-        // socket.connect();
-        // socket.on('connection', () => {
-        //     console.log('connected to server');
-        // })
-        // socket.on('sendExpression', (expression) => {
-        //     console.log('got the expression back:', expression)
-        //     this.addExpression(expression);
-        // })
+        socket.connect();
+        socket.on('connection', () => {
+            console.log('connected to server');
+        })
+        socket.on('sendExpression', (expression) => {
+            console.log('got the expression back:', expression)
+            this.addExpression(expression);
+        })
     }
 
     addExpression = (expression) => {
@@ -79,7 +79,7 @@ class Calc extends Component{
     handleSubmit = (expression) => {
         // event.preventDefault();
         const message = {expression: expression};
-        // socket.emit('sendExpression', message);
+        socket.emit('sendExpression', message);
     }
 
     render(){
