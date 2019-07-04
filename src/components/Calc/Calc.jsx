@@ -53,14 +53,14 @@ class Calc extends Component{
     // });    
 
     componentDidMount() {
-        // socket.connect();
-        // socket.on('connection', () => {
-        //     console.log('connected to server');
-        // })
-        // socket.on('sendExpression', (expression) => {
-        //     console.log('got the expression back:', expression)
-        //     this.addExpression(expression);
-        // })
+        socket.connect();
+        socket.on('connection', () => {
+            console.log('connected to server');
+        })
+        socket.on('sendExpression', (expression) => {
+            console.log('got the expression back:', expression)
+            this.addExpression(expression);
+        })
     }
 
     addExpression = (expression) => {
