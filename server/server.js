@@ -24,11 +24,6 @@ app.use(express.static('build'));
 //app set
 const PORT = process.env.PORT || 5000;
 
-//listen
-server.listen(PORT, () => {
-    console.log(`Listening on port: ${PORT}`);
-})
-
 
 io.on('connection', socket => {
     io.sockets.emit('hello', {message: 'hello from server!'});
@@ -48,4 +43,9 @@ io.on('connection', socket => {
             }
         })
     })
+})
+
+//listen
+server.listen(PORT, () => {
+    console.log(`Listening on port: ${PORT}`);
 })

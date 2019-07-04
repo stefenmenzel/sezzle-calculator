@@ -13,7 +13,7 @@ import ExpressionDisplay from '../ExpressionDisplay/ExpressionDisplay.jsx';
 // const URL = (process.env.PORT) ? 
 //     `https://immense-dawn-65811.herokuapp.com/` :
 //     `ws://192.168.1.135:5000`;
-const URL = `wss://immense-dawn-65811.herokuapp.com:26543/`;
+const URL = `wss://immense-dawn-65811.herokuapp.com/`;
 const HOST = window.location;
 console.log('host:', HOST);
 console.log("host:", `ws://${HOST.hostname}:${process.env.PORT || 5000}`);
