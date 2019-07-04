@@ -10,15 +10,15 @@ import ExpressionDisplay from '../ExpressionDisplay/ExpressionDisplay.jsx';
 
 // const URL = `ws://localhost:${process.env.port || 5000}`
 // const URL = `ws:https://immense-dawn-65811.herokuapp.com:${process.env.port || 5000}`
-const URL = (process.env.port) ? 
-    `https://immense-dawn-65811.herokuapp.com/` :
-    `ws://192.168.1.135:5000`;
-// const URL = '';
-// if(process.env.port){
-//     URL = location.origin.replace(/^http/, 'ws');
-// }else{
-//     URL = `ws://localhost:5000`; 
-// }
+// const URL = (process.env.port) ? 
+//     `https://immense-dawn-65811.herokuapp.com/` :
+//     `ws://192.168.1.135:5000`;
+let URL = '';
+if(process.env.port){
+    URL = window.location.origin.replace(/^http/, 'ws');
+}else{
+    URL = `ws://localhost:5000`; 
+}
 
 class Calc extends Component{
 
@@ -33,7 +33,7 @@ class Calc extends Component{
     //     transports: ['websocket'],
     //     upgrade: false,
     // })
-    socket = socketIOClient.connect();
+    socket = socketIOClient(URL);
 
     componentDidMount() {
         this.socket.on('sendExpression', (expression) => {
