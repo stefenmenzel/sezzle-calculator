@@ -43,7 +43,7 @@ class Calc extends Component{
 
     componentDidMount() {
         this.socket.connect();
-        this.socket.on('connect', () => {
+        this.socket.on('connection', () => {
             console.log('connected to server');
         })
         this.socket.on('sendExpression', (expression) => {
