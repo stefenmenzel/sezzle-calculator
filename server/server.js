@@ -8,7 +8,7 @@ const PORT = process.env.PORT || 5000;
 
 const app = express();
 const server = http.createServer(app);
-
+const io = socketIO.listen(server);
 
 const bodyParser = require('body-parser');
 
@@ -18,13 +18,12 @@ app.use(bodyParser.urlencoded({extended: true}));
 
 //serve static files
 app.use(express.static('build'));
-const io = socketIO.listen(server);
 // app.use(express.static(path.join(__dirname, 'build')));
 // app.get('*', (req, res) => {
 //     res.sendFile(path.join(__dirname, 'build', 'index.html'));
 // })
 
-// server.listen(PORT, () => console.log("server is running on:", PORT));
+server.listen(PORT, () => console.log("server is running on:", PORT));
 
 
 // const server = express()
