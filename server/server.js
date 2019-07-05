@@ -3,19 +3,20 @@ const path = require('path');
 const socketIO = require('socket.io');
 const http = require('http');
 
-const WebSocket = require('ws');
+// const SocketServer = require('ws').Server;
 
-// const app = express();
-// const server = http.createServer(app);
-// const io = socketIO(server);
-// const bodyParser = require('body-parser');
+
+const app = express();
+const server = http.createServer(app);
+const io = socketIO(server);
+const bodyParser = require('body-parser');
 
 //body parser
-// app.use(bodyParser.json);
-// app.use(bodyParser.urlencoded({extended: true}));
+app.use(bodyParser.json);
+app.use(bodyParser.urlencoded({extended: true}));
 
 //serve static files
-// app.use(express.static('build'));
+app.use(express.static('build'));
 // app.use(express.static(path.join(__dirname, '../../build')));
 
 // app.get('/', (req, res, next) => res.sendFile(__dirname + './index.html'));
@@ -25,48 +26,53 @@ const WebSocket = require('ws');
 // })
 //app set
 const PORT = process.env.PORT || 5000;
-const wss = new WebSocket.Server({ port: PORT });
+// const INDEX = path.join(__dirname, 'index.html');
 
-wss.on('connection', (ws) => {
-    console.log('user connected:');
-    ws.on('message', (data) => {
-        console.log('received message:', data);
-        wss.clients.forEach((client) => {
-            if(client.readyState === WebSocket.OPEN){
-                console.log('sending back');
-                client.send(data);
-            }
-        })
-    })    
-    ws.on('disconnect', () => {
-        console.log('user disconnected');
-    })
-});
-//listen
-// server.listen(PORT, () => {
-//     console.log(`Listening on port: ${PORT}`);
-// })
+// const server = express()
+//     .use((req, res) => res.sendFile(INDEX))
+//     .listen(PORT, () => console.log(`Listening on ${PORT}`));
 
-// io.on('connection', socket => {
-//     io.sockets.emit('hello', {message: 'hello from server!'});
-//     console.log('User connected');
-//     socket.on('disconnect', () => {
-//         console.log('user disconnected');
-//         socket.socket.reconnect();
-//     });
-//     socket.on('sendExpression', (expression) => {
-//         console.log('expression received:', expression);
-//         io.sockets.emit('sendExpression', expression);
-//     })
-//     socket.on('message', (data) => {
-//         console.log('server got a web socket message:', data);
+// const wss = new SocketServer({server});
+
+// wss.on('connection', (ws) => {
+//     console.log('user connected:');
+//     ws.on('message', (data) => {
+//         console.log('received message:', data);
 //         wss.clients.forEach((client) => {
-//             if (client !== ws && client.readyState === WebSocket.OPEN) {
+//             if(client.readyState === WebSocket.OPEN){
+//                 console.log('sending back');
 //                 client.send(data);
 //             }
 //         })
+//     })    
+//     ws.on('close', () => {
+//         console.log('user disconnected');
 //     })
-// })
+// });
+//listen
+server.listen(PORT, () => {
+    console.log(`Listening on port: ${PORT}`);
+})
+
+io.on('connection', socket => {
+    io.sockets.emit('hello', {message: 'hello from server!'});
+    console.log('User connected');
+    socket.on('disconnect', () => {
+        console.log('user disconnected');        
+    });
+    socket.on('sendExpression', (expression) => {
+        console.log('expression received:', expression);
+        io.sockets.emit('sendExpression', expression);
+    })
+    socket.on('message', (data) => {
+        console.log('server got a web socket message:', data);
+        wss.clients.forEach((client) => {
+            if (client !== ws && client.readyState === WebSocket.OPEN) {
+                client.send(data);
+            }
+        })
+    })
+})
 
 
 // setInterval(() => {
