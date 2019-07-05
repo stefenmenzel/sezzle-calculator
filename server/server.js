@@ -4,10 +4,11 @@ const socketIO = require('socket.io');
 const http = require('http');
 
 // const SocketServer = require('ws').Server;
-
+const PORT = process.env.PORT || 5000;
 
 const app = express();
-// const server = http.createServer(app);
+const server = http.createServer(app);
+const io = socketIO.listen(server);
 
 const bodyParser = require('body-parser');
 
@@ -19,11 +20,12 @@ app.use(bodyParser.urlencoded({extended: true}));
 // app.use(express.static('build'));
 app.use(express.static(path.join(__dirname, 'index.html')));
 
-const PORT = process.env.PORT || 5000;
+server.listen(PORT, () => console.log("server is running on:", PORT));
 
-const server = express()
-    .use((req, res) => res.sendFile(INDEX))
-    .listen(PORT, () => console.log(`Listening on ${PORT}`));
+
+// const server = express()
+//     .use((req, res) => res.sendFile(INDEX))
+//     .listen(PORT, () => console.log(`Listening on ${PORT}`));
 
 // app.get('/', (req, res, next) => res.sendFile(__dirname + './index.html'));
 // io.configure(() => {
@@ -60,9 +62,7 @@ const server = express()
 //     console.log(`Listening on port: ${PORT}`);
 // })
 
-const io = socketIO(server);
-
-io.on('connection', socket => {
+io.sockets.on('connection', socket => {
     // io.emit('hello', {message: 'hello from server!'});
     console.log('User connected');
     socket.on('disconnect', () => {
@@ -72,14 +72,14 @@ io.on('connection', socket => {
         console.log('expression received:', expression);
         io.emit('sendExpression', expression);
     })
-    socket.on('message', (data) => {
-        console.log('server got a web socket message:', data);
-        wss.clients.forEach((client) => {
-            if (client !== ws && client.readyState === WebSocket.OPEN) {
-                client.send(data);
-            }
-        })
-    })
+    // socket.on('message', (data) => {
+    //     console.log('server got a web socket message:', data);
+    //     wss.clients.forEach((client) => {
+    //         if (client !== ws && client.readyState === WebSocket.OPEN) {
+    //             client.send(data);
+    //         }
+    //     })
+    // })
 })
 
 

@@ -8,7 +8,7 @@ import CalcButtons from './CalcButtons.jsx';
 import './Calc.css';
 import ExpressionDisplay from '../ExpressionDisplay/ExpressionDisplay.jsx';
 
-// const URL = `ws://192.168.1.127:${process.env.port || 5000}`
+// const URL = `ws://localhost:${process.env.port || 5000}`
 // const URL = `ws:https://immense-dawn-65811.herokuapp.com:${process.env.port || 5000}`
 // const URL = (process.env.PORT) ? 
 //     `https://immense-dawn-65811.herokuapp.com/` :
@@ -101,7 +101,7 @@ class Calc extends Component{
         const message = {expression: expression};
         // this.socket.send(message);
         // this.socket.send(JSON.stringify(message));
-        // socket.emit('sendExpression', message);
+        socket.emit('sendExpression', message);
     }
 
     render(){
