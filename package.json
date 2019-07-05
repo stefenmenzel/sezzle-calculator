@@ -20,7 +20,7 @@
     "ws": "^7.0.1"
   },
   "scripts": {
-    "start": "node server/server.js",
+    "start": "react-scripts build",
     "client": "react-scripts start",
     "server": "nodemon server/server.js",
     "build": "react-scripts build",

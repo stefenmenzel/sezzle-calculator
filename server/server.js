@@ -17,10 +17,10 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
 
 //serve static files
-// app.use(express.static('build'));
-app.use(express.static(path.join(__dirname, 'index.html')));
+app.use(express.static('build'));
+// app.use(express.static(path.join(__dirname, 'index.html')));
 
-server.listen(PORT, () => console.log("server is running on:", PORT));
+// server.listen(PORT, () => console.log("server is running on:", PORT));
 
 
 // const server = express()
