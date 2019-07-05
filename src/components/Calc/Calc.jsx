@@ -13,7 +13,7 @@ import ExpressionDisplay from '../ExpressionDisplay/ExpressionDisplay.jsx';
 // const URL = (process.env.PORT) ? 
 //     `https://immense-dawn-65811.herokuapp.com/` :
 //     `ws://192.168.1.135:5000`;
-const URL = `wss://alluring-mesa-verde-82256.herokuapp.com/`;
+const URL = `ws://alluring-mesa-verde-82256.herokuapp.com/`;
 // const HOST = window.location.origin.replace(/^http/, 'ws');
 const HOST = `ws://192.168.1.135:5000`;
 console.log('host:', HOST);
@@ -32,9 +32,7 @@ console.log('process.env.PORT is real:', (process.env.PORT) ? true : false);
 //     transports: ['websocket'],
 //     upgrade: false,
 // });
-const socket = socketIOClient(URL, {
-    transports: ['websocket']
-});
+const socket = socketIOClient(URL);
 
 class Calc extends Component{
 
@@ -73,6 +71,7 @@ class Calc extends Component{
         //     })
         // }
 
+        // const socket = socketIOClient(URL, {transports: ['websocket']});
         // socket.connect();
         socket.on('connection', () => {
             console.log('connected to server');
@@ -102,7 +101,7 @@ class Calc extends Component{
         const message = {expression: expression};
         // this.socket.send(message);
         // this.socket.send(JSON.stringify(message));
-        socket.emit('sendExpression', message);
+        // socket.emit('sendExpression', message);
     }
 
     render(){
