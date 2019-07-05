@@ -8,12 +8,12 @@ import CalcButtons from './CalcButtons.jsx';
 import './Calc.css';
 import ExpressionDisplay from '../ExpressionDisplay/ExpressionDisplay.jsx';
 
-const URL = `ws://192.168.1.135:${process.env.port || 5000}`
+// const URL = `ws://192.168.1.135:${process.env.port || 5000}`
 // const URL = `ws:https://immense-dawn-65811.herokuapp.com:${process.env.port || 5000}`
 // const URL = (process.env.PORT) ? 
 //     `https://immense-dawn-65811.herokuapp.com/` :
 //     `ws://192.168.1.135:5000`;
-// const URL = `wss://immense-dawn-65811.herokuapp.com/`;
+const URL = `ws://alluring-mesa-verde-82256.herokuapp.com/`;
 // const HOST = window.location.origin.replace(/^http/, 'ws');
 const HOST = `ws://192.168.1.135:5000`;
 console.log('host:', HOST);
