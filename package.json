@@ -17,7 +17,6 @@
     "react-scripts": "3.0.1",
     "socket.io": "2.2.0",
     "socket.io-client": "^2.2.0",
-    "webpack-hot-middleware": "^2.25.0",
     "ws": "^7.0.1"
   },
   "scripts": {
@@ -31,11 +30,7 @@
   "eslintConfig": {
     "extends": "react-app"
   },
-  "devDependencies": {
-    "webpack": "^4.35.2",
-    "webpack-dev-middleware": "^1.6.1",
-    "webpack-hot-middleware": "^2.10.0"
-  },
+  "devDependencies": {},
   "browserslist": [
     ">0.2%",
     "not dead",
