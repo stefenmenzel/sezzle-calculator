@@ -7,8 +7,8 @@ const http = require('http');
 
 
 const app = express();
-const server = http.createServer(app);
-const io = socketIO(server);
+// const server = http.createServer(app);
+
 const bodyParser = require('body-parser');
 
 //body parser
@@ -16,8 +16,14 @@ app.use(bodyParser.json);
 app.use(bodyParser.urlencoded({extended: true}));
 
 //serve static files
-app.use(express.static('build'));
-// app.use(express.static(path.join(__dirname, '../../build')));
+// app.use(express.static('build'));
+app.use(express.static(path.join(__dirname, 'index.html')));
+
+const PORT = process.env.PORT || 5000;
+
+const server = express()
+    .use((req, res) => res.sendFile(INDEX))
+    .listen(PORT, () => console.log(`Listening on ${PORT}`));
 
 // app.get('/', (req, res, next) => res.sendFile(__dirname + './index.html'));
 // io.configure(() => {
@@ -25,7 +31,7 @@ app.use(express.static('build'));
 //     io.set("polling duration", 10);
 // })
 //app set
-const PORT = process.env.PORT || 5000;
+
 // const INDEX = path.join(__dirname, 'index.html');
 
 // const server = express()
@@ -50,19 +56,21 @@ const PORT = process.env.PORT || 5000;
 //     })
 // });
 //listen
-server.listen(PORT, () => {
-    console.log(`Listening on port: ${PORT}`);
-})
+// server.listen(PORT, () => {
+//     console.log(`Listening on port: ${PORT}`);
+// })
+
+const io = socketIO(server);
 
 io.on('connection', socket => {
-    io.sockets.emit('hello', {message: 'hello from server!'});
+    // io.emit('hello', {message: 'hello from server!'});
     console.log('User connected');
     socket.on('disconnect', () => {
         console.log('user disconnected');        
     });
     socket.on('sendExpression', (expression) => {
         console.log('expression received:', expression);
-        io.sockets.emit('sendExpression', expression);
+        io.emit('sendExpression', expression);
     })
     socket.on('message', (data) => {
         console.log('server got a web socket message:', data);

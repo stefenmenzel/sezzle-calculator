@@ -8,7 +8,7 @@ import CalcButtons from './CalcButtons.jsx';
 import './Calc.css';
 import ExpressionDisplay from '../ExpressionDisplay/ExpressionDisplay.jsx';
 
-// const URL = `ws://192.168.1.135:${process.env.port || 5000}`
+// const URL = `ws://192.168.1.127:${process.env.port || 5000}`
 // const URL = `ws:https://immense-dawn-65811.herokuapp.com:${process.env.port || 5000}`
 // const URL = (process.env.PORT) ? 
 //     `https://immense-dawn-65811.herokuapp.com/` :
