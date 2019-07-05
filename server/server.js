@@ -13,7 +13,7 @@ const io = socketIO.listen(server);
 const bodyParser = require('body-parser');
 
 //body parser
-app.use(bodyParser.json);
+app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
 
 //serve static files
