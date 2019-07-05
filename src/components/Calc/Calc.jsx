@@ -32,7 +32,9 @@ console.log('process.env.PORT is real:', (process.env.PORT) ? true : false);
 //     transports: ['websocket'],
 //     upgrade: false,
 // });
-const socket = socketIOClient(URL);
+const socket = socketIOClient(URL, {
+    transports: ['websocket']
+});
 
 class Calc extends Component{
 
