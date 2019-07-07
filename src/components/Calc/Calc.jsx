@@ -9,6 +9,7 @@ import './Calc.css';
 import ExpressionDisplay from '../ExpressionDisplay/ExpressionDisplay.jsx';
 
 const URL = `https://alluring-mesa-verde-82256.herokuapp.com`;
+// const URL = `ws://localhost:5000`;
 
 const socket = socketIOClient(URL);
 
@@ -20,19 +21,31 @@ class Calc extends Component{
     }    
 
     componentDidMount() {
+        this.GETExpressions();
         socket.on('connection', () => {
-            console.log('connected to server');
+            console.log('connected to server');            
         })
         socket.on('sendExpression', (expression) => {
-            console.log('got the expression back:', expression)
-            this.addExpression(expression);
+            console.log('got the expression back:', expression)            
+            this.GETExpressions();
         })
     }
 
-    addExpression = (expression) => {
-        console.log('in expression with:', expression);
+    GETExpressions = () => {
+        console.log('in get expressions');
+        Axios.get('/api/expression')
+            .then((result) => {
+                console.log("result from GET expressions request", result);
+                this.addExpression(result.data);
+            }).catch((error) => {
+                console.log("Error in GET expressions request:", error);
+            })
+    }
+
+    addExpression = (expressions) => {
+        console.log('in expression with:', expressions);
         this.setState({
-            expressions: [expression, ...this.state.expressions]
+            expressions: expressions
         })
     }
 
@@ -45,7 +58,13 @@ class Calc extends Component{
 
     handleSubmit = (expression) => {
         const message = {expression: expression};
-        socket.emit('sendExpression', message);
+        Axios.post('/api/expression/add', message)
+        .then((result) => {
+            console.log('result from POST expression request:', result);
+            socket.emit('sendExpression', message);
+        }).catch((error) => {
+            console.log('error in POST expression request:', error);
+        })        
     }
 
     render(){
