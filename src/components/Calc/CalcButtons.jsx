@@ -152,7 +152,7 @@ class CalcButtons extends Component{
             <div className='calc'>
                 <Grid container justify="center">
                     <Grid item xs={12}>
-                        <Grid item xs={12}>
+                        <Grid item xs={12} sm={12}>
                             <input disabled value={this.state.currentExpression} className="inputField" onChange={this.props.handleChange} />
                             <Button className="cButton" variant="contained" color="primary" onClick={this.clearExpression}>C</Button>
                         </Grid>

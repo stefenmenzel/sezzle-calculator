@@ -8,18 +8,18 @@
 }
 
 .calcButton{
-    width:23%;
+    width:12.25vw;
     margin:1% !important;
 }
 
 .cButton{
-    width: 15.5%;
+    width: 10.15vw;
     height: 5.5vw !important;
     font-size: 1.25em !important;    
 }
 
 .inputField{
-    width: 80%;
+    width: 76%;
     margin:1%;
     height: 35px;
     text-align: right;
