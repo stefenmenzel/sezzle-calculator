@@ -35,13 +35,3 @@ io.sockets.on('connection', socket => {
         console.log("got to the end of the post");
     })
 })
-
-function sendExToDB(expression){
-    axios.post('/api/expression/add', expression)
-        .then((result) => {
-            console.log('result from POST expression request:', result);
-            io.emit('sendExpression', result);
-        }).catch((error) => {
-            console.log("error in POST expression request", error);
-        })
-}

@@ -2,6 +2,7 @@ const express = require('express');
 const pool = require('../modules/pool');
 const router = express.Router();
 
+//get all expressions from DB
 router.get('/', (req, res) => {
     console.log("inside GET expressions");
     let query = `
@@ -20,6 +21,7 @@ router.get('/', (req, res) => {
     })
 })
 
+//add a new expression to the DB.
 router.post('/add', (req,res) => {
     console.log("req.body in post expression:", req.body);
     let query = `

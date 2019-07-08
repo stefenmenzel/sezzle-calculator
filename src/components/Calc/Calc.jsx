@@ -8,6 +8,7 @@ import CalcButtons from './CalcButtons.jsx';
 import './Calc.css';
 import ExpressionDisplay from '../ExpressionDisplay/ExpressionDisplay.jsx';
 
+//this url points to my heroku instance. Used to communicate with the websocket.
 const URL = `https://alluring-mesa-verde-82256.herokuapp.com`;
 // const URL = `ws://localhost:5000`;
 
@@ -20,6 +21,7 @@ class Calc extends Component{
         expressions: []
     }    
 
+    //on mount, fetch expressions from database, check for sent expression from the server.
     componentDidMount() {
         this.GETExpressions();
         socket.on('connection', () => {
@@ -31,6 +33,7 @@ class Calc extends Component{
         })
     }
 
+    //fetch expressions from the server.
     GETExpressions = () => {
         console.log('in get expressions');
         Axios.get('/api/expression')
@@ -42,20 +45,15 @@ class Calc extends Component{
             })
     }
 
+    //set expressions to display from database (top ten only).
     addExpression = (expressions) => {
         console.log('in expression with:', expressions);
         this.setState({
             expressions: expressions
         })
-    }
+    }    
 
-    handleChange = (event) => {
-        this.setState({
-            ...this.state,
-            test: event.target.value
-        })
-    }
-
+    //send expression to server -> database, then send message to server to update other clients.
     handleSubmit = (expression) => {
         const message = {expression: expression};
         Axios.post('/api/expression/add', message)
@@ -67,6 +65,7 @@ class Calc extends Component{
         })        
     }
 
+    //display components.
     render(){
         console.log("calc state", this.state);        
         return(

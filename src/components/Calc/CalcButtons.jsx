@@ -5,6 +5,7 @@ import './Calc.css';
 
 class CalcButtons extends Component{
 
+    //stash information in local state
     state = {
         currentNumber: 0,
         currentExpression: '',
@@ -12,8 +13,8 @@ class CalcButtons extends Component{
         operands: [],
     }
 
-    handleClick = (event) => {
-        console.log('button value:', event.currentTarget.value);
+    //fire when a calc button was clicked
+    handleClick = (event) => {        
         this.setState({
             ...this.state,
             currentExpression: this.state.currentExpression + event.currentTarget.value,
@@ -21,6 +22,9 @@ class CalcButtons extends Component{
         })
     }
 
+    //take in current number, make sure there weren't extra expressions
+    //run all multiplication/division from left to right then addition/subtraction
+    //calculation stops when there's one number left.
     resolveExpression = (currentNumber) => {
         let currentExpression = this.state.currentExpression;
         let numbers = this.state.numbers;
@@ -31,30 +35,24 @@ class CalcButtons extends Component{
             currentExpression = currentExpression.substring(0, currentExpression.length - 2);
             numbers.pop();
             operands.pop();
-        }                
-        console.log("resolving expression:", currentExpression);
-        console.log('last inputted value:', this.state.currentExpression[this.state.currentExpression.length - 2])
+        }                        
                     
         let result = 0;        
-        console.log('numbers before resolution:', numbers);
+        
         for(let i = 0; i < operands.length; i++){
             switch (operands[i]) {
                 case '*':
                     console.log('multiply');
                     result = numbers[i] * numbers[i + 1];
                     numbers.splice(i, 2, result);
-                    operands.splice(i, 1);
-                    console.log("numbers after multiply", numbers);
-                    console.log("operands after multiply:", operands);
+                    operands.splice(i, 1);                    
                     i--;
                     continue;
                 case '/':
                     console.log('divide');
                     result = numbers[i] / numbers[i + 1];
                     numbers.splice(i, 2, result);
-                    operands.splice(i, 1);
-                    console.log("numbers after divide", numbers);
-                    console.log("operands after divide:", operands);
+                    operands.splice(i, 1);                    
                     i--;
                     continue;
                 default:
@@ -71,12 +69,8 @@ class CalcButtons extends Component{
                     i--;
                     continue;
                 case '-':
-                    console.log("subtract");
-                    console.log('index:', i);
-                    result = (numbers[i] - numbers[i+1]);
-                    console.log('numbers[i] in subtract:', numbers[i]);
-                    console.log('numbers[i+1] in subtract')
-                    console.log('result after subtraction:', result);
+                    console.log("subtract");                    
+                    result = (numbers[i] - numbers[i+1]);                    
                     numbers.splice(i, 2, result);
                     operands.splice(i, 1);
                     i--;
@@ -85,13 +79,10 @@ class CalcButtons extends Component{
                 default:
                     break;
             }
-        }
-        
-        console.log('numbers after MD', numbers);
+        }        
 
         currentExpression += ` = ${numbers[0]}`;
-        this.props.handleSubmit(currentExpression);
-        console.log('current resolved expression:', currentExpression);
+        this.props.handleSubmit(currentExpression);        
         this.setState({
             currentNumber: 0,
             currentExpression: '',
@@ -100,6 +91,7 @@ class CalcButtons extends Component{
         })
     }
 
+    //an operation button was pressed...add it to our operands array/trigger expression resolution.
     handleOperation = (operation) => {
         if(this.state.currentExpression.length <= 0){
             return;
@@ -134,15 +126,11 @@ class CalcButtons extends Component{
                 break;
         }
 
-        this.setState({
-            ...this.state,
-            numbers: [...this.state.numbers, currentNumber],
-            operands: [...this.state.operands, operand],
-            currentNumber: '0',
-            currentExpression: this.state.currentExpression + ' ' + operand + ' ',
-        });
+        //reset values.
+        this.clearExpression();
     }
 
+    //reset all values.
     clearExpression = () => {
         this.setState({
             currentExpression: '',
@@ -152,6 +140,7 @@ class CalcButtons extends Component{
         })
     }
 
+    //put the buttons in rows...like a calculator.
     render(){
         console.log("calc button state:", this.state);
         return(
