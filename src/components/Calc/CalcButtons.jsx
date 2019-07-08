@@ -92,6 +92,12 @@ class CalcButtons extends Component{
         currentExpression += ` = ${numbers[0]}`;
         this.props.handleSubmit(currentExpression);
         console.log('current resolved expression:', currentExpression);
+        this.setState({
+            currentNumber: 0,
+            currentExpression: '',
+            numbers: [],
+            operands: [],
+        })
     }
 
     handleOperation = (operation) => {
