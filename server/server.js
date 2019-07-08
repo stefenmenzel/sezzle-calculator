@@ -23,8 +23,7 @@ app.use(express.static('build'));
 
 server.listen(PORT, () => console.log("server is running on:", PORT));
 
-io.sockets.on('connection', socket => {
-    // io.emit('hello', {message: 'hello from server!'});
+io.sockets.on('connection', socket => {    
     console.log('User connected');
     socket.on('disconnect', () => {
         console.log('user disconnected');        
