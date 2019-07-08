@@ -83,12 +83,8 @@ class CalcButtons extends Component{
 
         currentExpression += ` = ${numbers[0]}`;
         this.props.handleSubmit(currentExpression);        
-        this.setState({
-            currentNumber: 0,
-            currentExpression: '',
-            numbers: [],
-            operands: [],
-        })
+        //reset values.
+        this.clearExpression();
     }
 
     //an operation button was pressed...add it to our operands array/trigger expression resolution.
@@ -124,10 +120,7 @@ class CalcButtons extends Component{
         
             default:
                 break;
-        }
-
-        //reset values.
-        this.clearExpression();
+        }        
     }
 
     //reset all values.
