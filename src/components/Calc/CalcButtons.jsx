@@ -83,7 +83,6 @@ class CalcButtons extends Component{
 
         currentExpression += ` = ${numbers[0]}`;
         this.props.handleSubmit(currentExpression);        
-        //reset values.
         this.clearExpression();
     }
 
@@ -120,10 +119,18 @@ class CalcButtons extends Component{
         
             default:
                 break;
-        }        
+        }
+
+        this.setState({
+            ...this.state,
+            numbers: [...this.state.numbers, currentNumber],
+            operands: [...this.state.operands, operand],
+            currentNumber: '0',
+            currentExpression: this.state.currentExpression + ' ' + operand + ' ',
+        });
     }
 
-    //reset all values.
+    //reset values
     clearExpression = () => {
         this.setState({
             currentExpression: '',
@@ -133,7 +140,7 @@ class CalcButtons extends Component{
         })
     }
 
-    //put the buttons in rows...like a calculator.
+    //layout all the buttons in rows...like a calculator.
     render(){
         console.log("calc button state:", this.state);
         return(
